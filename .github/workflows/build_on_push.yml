@@ -6,11 +6,14 @@ jobs:
   build_on_push:
     runs-on: ubuntu-latest
     steps:
+      - name: Update APT
+        run: sudo apt-get update
       - name: Install ARM GNU Toolchain
-          run: sudo apt-get update
-          run: sudo apt-get install build-essential binutils-arm-none-eabi
+        run: sudo apt-get install build-essential binutils-arm-none-eabi
       - name: Sync Repository Code
-          uses: actions/checkout@v3
-          run: ls -all 
+        uses: actions/checkout@v3
+      - name: Dump root directory
+        run: ls -all 
       - name: Build BLE5 Controller
-          run: make -C controller/build/ble5-ctr/gcc
+        run: make -C controller/build/ble5-ctr/gcc
+        with: bash
