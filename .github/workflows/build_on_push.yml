@@ -9,6 +9,10 @@ jobs:
         run: sudo apt-get update
       - name: Install ARM GNU Toolchain
         run: sudo apt-get install build-essential binutils-arm-none-eabi
+      - name: Check where the ARM GNU Toolchain was installed
+        run: |
+          dpkg -L build-essential 
+          dpkg -L binutils-arm-none-eabi
       - name: Sync Repository Code
         uses: actions/checkout@v3
       - name: Dump root directory
