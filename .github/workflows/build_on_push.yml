@@ -3,7 +3,7 @@ author: konyip
 run-name: ${{ github.actor }} is attempting to build on push to respository
 on: [push]
 jobs:
-  build_on_push
+  build_on_push:
     runs-on: ubuntu-latest
     steps:
       - name: Install ARM GNU Toolchain
