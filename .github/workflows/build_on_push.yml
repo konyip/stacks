@@ -1,9 +1,16 @@
 name: build_on_push
+author: konyip
 run-name: ${{ github.actor }} is attempting to build on push to respository
 on: [push]
 jobs:
-  check-bats-version:
+  build_on_push
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - run: ls -all
+      - name: Install ARM GNU Toolchain
+          run: sudo apt-get update
+          run: sudo apt-get install build-essential binutils-arm-none-eabi
+      - name: Sync Repository Code
+          uses: actions/checkout@v3
+          run: ls -all 
+      - name: Build BLE5 Controller
+          run: make -C controller/build/ble5-ctr/gcc
