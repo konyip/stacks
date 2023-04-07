@@ -25,5 +25,5 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: ble5-ctr.elf
-          path: bin/ble5-ctr.elf
+          path: /home/runner/work/stacks/stacks/controller/build/ble5-ctr/gcc/bin/ble5-ctr.elf
           retention-days: 5
