@@ -8,7 +8,7 @@ jobs:
       - name: Update APT
         run: sudo apt-get update
       - name: Search for ARM GNU GCC Toolchain
-        run: apt-cache search arm-non-eabi
+        run: apt-cache search arm-none-eabi
       - name: Install ARM GNU Toolchain
         run: sudo apt-get install build-essential binutils-arm-none-eabi
       - name: Check where the ARM GNU Toolchain was installed
