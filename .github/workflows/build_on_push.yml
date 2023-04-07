@@ -8,7 +8,9 @@ jobs:
       - name: Update APT
         run: sudo apt-get update
       - name: Install ARM GNU Toolchain
-        run: sudo apt-get install build-essential binutils-arm-none-eabi
+        run: |
+          sudo apt-cache search arm-non-eabi
+          sudo apt-get install build-essential binutils-arm-none-eabi
       - name: Check where the ARM GNU Toolchain was installed
         run: |
           dpkg -L build-essential 
@@ -22,5 +24,5 @@ jobs:
           export PATH=/usr/lib/arm-none-eabi/bin:$PATH
           echo $PATH
           ps -p $$
-          echo $0
+          echo $0 
           make -C controller/build/ble5-ctr/gcc
