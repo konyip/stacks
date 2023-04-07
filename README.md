@@ -39,7 +39,7 @@ Getting Started
 If using a system with package manager such as Ubuntu, use the following command line to install dependent tools:
 
 ```
-sudo apt-get install build-essential binutils-arm-none-eabi
+sudo apt-get install build-essential binutils-arm-none-eabi gcc-arm-none-eabi
 ```
 
 Alternatively download and install the GNU Arm Embedded Toolchain from here and add the path to the `bin` folder to your PATH environment.
