@@ -13,13 +13,14 @@ jobs:
         run: |
           dpkg -L build-essential 
           dpkg -L binutils-arm-none-eabi
-      - name: Update Path
-        run: export PATH=/usr/lib/arm-none-eabi/bin:$PATH
       - name: Sync Repository Code
         uses: actions/checkout@v3
       - name: Dump root directory
         run: ls -all 
       - name: Build BLE5 Controller
         run: |
+          export PATH=/usr/lib/arm-none-eabi/bin:$PATH
           echo $PATH
+          ps -p $$
+          echo $0
           make -C controller/build/ble5-ctr/gcc
