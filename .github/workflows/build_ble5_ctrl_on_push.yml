@@ -1,5 +1,5 @@
-name: build_on_push
-run-name: ${{ github.actor }} is attempting to build on push to respository
+name: build ble5 controller on push
+run-name: ${{ github.actor }} is attempting to build ble5 controller on push to respository
 on: [push]
 jobs:
   build_on_push:
@@ -20,7 +20,10 @@ jobs:
       - name: Build BLE5 Controller
         run: |
           export PATH=/usr/lib/gcc-arm-none-eabi/bin:/usr/lib/arm-none-eabi/bin:$PATH
-          echo $PATH
-          ps -p $$
-          echo $0 
           make -C controller/build/ble5-ctr/gcc
+      - name: Store Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: ble5-ctr.elf
+          path: bin/ble5-ctr.elf
+          retention-days: 5
