@@ -7,10 +7,10 @@ jobs:
     steps:
       - name: Update APT
         run: sudo apt-get update
+      - name: Search for ARM GNU GCC Toolchain
+        run: apt-cache search arm-non-eabi
       - name: Install ARM GNU Toolchain
-        run: |
-          sudo apt-cache search arm-non-eabi
-          sudo apt-get install build-essential binutils-arm-none-eabi
+        run: sudo apt-get install build-essential binutils-arm-none-eabi
       - name: Check where the ARM GNU Toolchain was installed
         run: |
           dpkg -L build-essential 
