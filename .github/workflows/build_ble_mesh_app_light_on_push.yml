@@ -1,0 +1,29 @@
+name: build ble mesh app light on push
+run-name: ${{ github.actor }} is attempting to build ble mesh app light on push to respository
+on: [push]
+jobs:
+  build_on_push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update APT
+        run: sudo apt-get update
+      - name: Install ARM GNU Toolchain
+        run: sudo apt-get install build-essential binutils-arm-none-eabi gcc-arm-none-eabi
+      - name: Check where the ARM GNU Toolchain was installed
+        run: |
+          dpkg -L binutils-arm-none-eabi
+          dpkg -L gcc-arm-none-eabi
+      - name: Sync Repository Code
+        uses: actions/checkout@v3
+      - name: Dump root directory
+        run: ls -all 
+      - name: Build BLE Mesh App Light
+        run: |
+          export PATH=/usr/lib/gcc-arm-none-eabi/bin:/usr/lib/arm-none-eabi/bin:$PATH
+          make -C ble-mesh-apps/build/light/gcc
+      - name: Store Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: assettag.elf
+          path: /home/runner/work/stacks/stacks/ble-mesh-apps/build/light/gcc/light.elf
+          retention-days: 5
