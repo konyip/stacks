@@ -17,7 +17,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Dump root directory
         run: ls -all 
-      - name: Build BLE APP Asset Tag Controller
+      - name: Build BLE APP Asset Tag
         run: |
           export PATH=/usr/lib/gcc-arm-none-eabi/bin:/usr/lib/arm-none-eabi/bin:$PATH
           make -C ble-apps/build/assettag/gcc
