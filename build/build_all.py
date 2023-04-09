@@ -1,9 +1,7 @@
 # File to compile all possible projects in specified folders
 # Directory structure assumed to be
 # | <folder>/build/<app>/gcc/bin/
-# 
-# <folder> list is specified here. 
-# <app> will be determined from <folder> list
+
 import os
 import subprocess
 
@@ -13,12 +11,17 @@ import subprocess
 #   <binary output>
 class Project:
     def __init__(self, folder, app):
-        self.folder = folder
+        self.folder = os.path.join(folder, app)
         self.app = app
-        self.makeCommand = f'make -C {self.folder}/build/{self.app}/gcc'
-        self.binaryOutput = f'{self.folder}/build/{self.app}/gcc/bin/{self.app}.elf'
+        self.makeCommand = 'make -C ' + os.path.join(self.folder, 'build', self.app, 'gcc')
+        self.binaryOutput = os.path.join(self.folder, 'build',  self.app, 'gcc', 'bin', self.app + '.elf')
+        self.buildResult = -1
 
-    #def get_Folder(self):
+    def printInfo(self):
+        print(f'{self.folder}:')
+        print(f'    build: {self.makeCommand}')
+        print(f'    binary: {self.binaryOutput}')
+
 
 
 # This function returns the list to compile from the specified folder
@@ -31,6 +34,10 @@ def generateCompileList(folder):
     print(f'generateCompileList ({search_path}): {dir_list_string}')
 
     # remove "common" folder which should not be compiled directly
+    remove_dir_list = ['common']
+    dir_list = [foldername for foldername in dir_list if foldername not in remove_dir_list]
+    
+    return dir_list
 
 
 # This function executes commands 
@@ -53,6 +60,8 @@ def executeCommand(command):
 
 
 def main():
+    projects_to_compile = []
+
     # List all sub-folders in specified <folder>
     to_compile_folders = ['ble-apps',
                           'ble-mesh-apps',
@@ -60,8 +69,12 @@ def main():
     
     for folder in to_compile_folders:
         compile_list = generateCompileList(folder)
+        for app in compile_list:
+            projects_to_compile.append(Project(folder, app))
 
-    # Combine all sub-folders 
+    # Print all
+    for app in projects_to_compile:
+        app.printInfo()
    
 
 if __name__ == "__main__":
