@@ -25,5 +25,5 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: assettag.elf
-          path: /home/runner/work/stacks/stacks/ble-apps/build/assettag/gcc/assettag.elf
+          path: /home/runner/work/stacks/stacks/ble-apps/build/assettag/gcc/bin/assettag.elf
           retention-days: 5

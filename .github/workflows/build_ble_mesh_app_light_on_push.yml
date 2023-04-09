@@ -25,5 +25,5 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: assettag.elf
-          path: /home/runner/work/stacks/stacks/ble-mesh-apps/build/light/gcc/light.elf
+          path: /home/runner/work/stacks/stacks/ble-mesh-apps/build/light/gcc/bin/light.elf
           retention-days: 5
