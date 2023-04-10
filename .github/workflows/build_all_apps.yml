@@ -25,5 +25,6 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: all.elf
-          path: /home/runner/work/stacks/*/gcc/bin/*.elf
+          path: /home/runner/work/stacks/stacks/*/build/*/gcc/bin/*.elf
           retention-days: 5
+          if-no-files-found: error
