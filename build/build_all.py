@@ -21,6 +21,7 @@ class Project:
         print(f'{self.folder}:')
         print( '    build: '+ ' '.join(self.makeCommand))
         print(f'    binary: {self.binaryOutput}')
+        print(f'    buildResult: {self.buildResult}')
 
 
 
@@ -54,6 +55,7 @@ def executeCommand(command):
         return(f"Failed {e.returncode}")
     except OSError as e:
         print(f"Build ({build_command}) failed:  {e.returncode}")
+        print(e.output)
         return("Error")
 
 
@@ -74,12 +76,14 @@ def main():
         for app in compile_list:
             projects_to_compile.append(Project(folder, app))
 
-    # Print all images
+    # Compile all images
     for app in projects_to_compile:
         app.printInfo()
         app.buildResult = executeCommand(app.makeCommand)
         print (f'{app.app} compile {app.buildResult}')
-   
+
+    # Check each image to determine if there were any failures
+    # Keep a list of successful images and failed image
 
 if __name__ == "__main__":
     main()
