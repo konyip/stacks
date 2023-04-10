@@ -13,13 +13,13 @@ class Project:
     def __init__(self, folder, app):
         self.folder = os.path.join(folder, 'build', app)
         self.app = app
-        self.makeCommand = 'make -C ' + os.path.join(self.folder, 'gcc')
+        self.makeCommand = ['make', '-C ', os.path.join(self.folder, 'gcc')]
         self.binaryOutput = os.path.join(self.folder, 'gcc', 'bin', self.app + '.elf')
         self.buildResult = None
 
     def printInfo(self):
         print(f'{self.folder}:')
-        print(f'    build: {self.makeCommand}')
+        print( '    build:'+ ' '.join(self.makeCommand))
         print(f'    binary: {self.binaryOutput}')
 
 
