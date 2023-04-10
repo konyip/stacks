@@ -12,6 +12,7 @@ import subprocess
 class Project:
     def __init__(self, folder, app):
         self.folder = os.path.join(folder, 'build', app)
+        self.name = f'{self.folder}-{self.app}'
         self.app = app
         self.makeCommand = ['make', '-C', os.path.join(self.folder, 'gcc')]
         self.binaryOutput = os.path.join(self.folder, 'gcc', 'bin', self.app + '.elf')
@@ -84,6 +85,13 @@ def main():
 
     # Check each image to determine if there were any failures
     # Keep a list of successful images and failed image
+    successful_compile = [app.name for app in projects_to_compile if 'Success' in app.buildResult]
+    failed_compile = [app.name for app in projects_to_compile if 'Failed' in app.buildResult]
+    didnt_compile = [app.name for app in projects_to_compile if not app.buildResult]
+
+    print('Successful Compilation: ' + ','.join(successful_compile))
+    print('Failed Compilation: ' + ','.join(failed_compile))
+    print('Compilation Not Executed: ' + ','.join(didnt_compile))
 
 if __name__ == "__main__":
     main()
