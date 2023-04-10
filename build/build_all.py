@@ -14,7 +14,7 @@ class Project:
         self.folder = os.path.join(folder, app)
         self.app = app
         self.makeCommand = 'make -C ' + os.path.join(self.folder, 'gcc')
-        self.binaryOutput = os.path.join(self.folder, 'build',  self.app, 'gcc', 'bin', self.app + '.elf')
+        self.binaryOutput = os.path.join(self.folder, 'gcc', 'bin', self.app + '.elf')
         self.buildResult = None
 
     def printInfo(self):
