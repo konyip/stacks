@@ -1,6 +1,12 @@
 name: build ble app asset tag on push
 run-name: ${{ github.actor }} is attempting to build ble app asset tag on push to respository
-on: [push]
+on:
+  push:
+    paths:
+      - '/home/runner/work/stacks/stacks/ble-apps/build/assettag/**'
+      - '/home/runner/work/stacks/stacks/ble-apps/build/common/**'
+      - '/home/runner/work/stacks/stacks/ble-apps/source/assettag/**'
+      - '/home/runner/work/stacks/stacks/platform/**'
 jobs:
   build_on_push:
     runs-on: ubuntu-latest
