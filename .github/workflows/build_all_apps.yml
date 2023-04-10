@@ -21,8 +21,6 @@ jobs:
         run: |
           export PATH=/usr/lib/gcc-arm-none-eabi/bin:/usr/lib/arm-none-eabi/bin:$PATH
           python build/build_all.py
-      - name: Build BLE5 Controller
-        run: make -C controller/build/ble5-ctr/gcc
       - name: Store All Artifacts
         uses: actions/upload-artifact@v3
         with:
