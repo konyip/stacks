@@ -11,11 +11,10 @@ import subprocess
 #   <binary output>
 class Project:
     def __init__(self, folder, app):
+        self.name = f'{folder}-{app}'
         self.folder = os.path.join(folder, 'build', app)
-        self.name = f'{self.folder}-{self.app}'
-        self.app = app
         self.makeCommand = ['make', '-C', os.path.join(self.folder, 'gcc')]
-        self.binaryOutput = os.path.join(self.folder, 'gcc', 'bin', self.app + '.elf')
+        self.binaryOutput = os.path.join(self.folder, 'gcc', 'bin', app + '.elf')
         self.buildResult = None
 
     def printInfo(self):
@@ -81,7 +80,7 @@ def main():
     for app in projects_to_compile:
         app.printInfo()
         app.buildResult = executeCommand(app.makeCommand)
-        print (f'{app.app} compile {app.buildResult}')
+        print (f'{app.name} compile {app.buildResult}')
 
     # Check each image to determine if there were any failures
     # Keep a list of successful images and failed image
