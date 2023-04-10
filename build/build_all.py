@@ -62,7 +62,7 @@ def executeCommand(command):
 def main():
     projects_to_compile = []
 
-    print(os.path.abspath())
+    print(os.path.abspath('.'))
 
     # List all sub-folders in specified <folder>
     to_compile_folders = ['ble-apps',
