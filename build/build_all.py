@@ -29,7 +29,7 @@ def generateCompileList(folder):
     # Get current working directory.  This file should be root/build.
     search_path = os.path.join(os.path.abspath(folder), 'build')
 
-    dir_list = [os.path.join(filename,'build') for filename in os.listdir(os.path.join(search_path)) if os.path.isdir(os.path.join(search_path, filename))]
+    dir_list = [filename for filename in os.listdir(os.path.join(search_path)) if os.path.isdir(os.path.join(search_path, filename))]
     dir_list_string = ','.join(dir_list)
     print(f'generateCompileList ({search_path}): {dir_list_string}')
 
