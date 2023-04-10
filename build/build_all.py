@@ -13,7 +13,7 @@ class Project:
     def __init__(self, folder, app):
         self.folder = os.path.join(folder, 'build', app)
         self.app = app
-        self.makeCommand = ['make', '-C ', os.path.join(self.folder, 'gcc')]
+        self.makeCommand = ['make', '-C', os.path.join(self.folder, 'gcc')]
         self.binaryOutput = os.path.join(self.folder, 'gcc', 'bin', self.app + '.elf')
         self.buildResult = None
 
