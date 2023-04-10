@@ -46,7 +46,9 @@ def executeCommand(command):
     build_command = ' '.join(command)
     try:
         result = subprocess.check_output(command, stderr=subprocess.STDOUT, universal_newlines=True)
+        print("------- Build Log ----------")
         print(result)
+        print("----------------------------")
         print(f"Build ({build_command}) successful")
         return("Success")
     except subprocess.CalledProcessError as e:
