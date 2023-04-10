@@ -19,7 +19,7 @@ class Project:
 
     def printInfo(self):
         print(f'{self.folder}:')
-        print( '    build:'+ ' '.join(self.makeCommand))
+        print( '    build: '+ ' '.join(self.makeCommand))
         print(f'    binary: {self.binaryOutput}')
 
 
@@ -49,7 +49,7 @@ def executeCommand(command):
         print(f"Build ({build_command}) successful")
         return("Success")
     except subprocess.CalledProcessError as e:
-        print("Build ({build_command}) was terminated by signal: {e.returncode}")
+        print(f"Build ({build_command}) was terminated by signal: {e.returncode}")
         print(e.output)
         return(f"Failed {e.returncode}")
     except OSError as e:
@@ -61,6 +61,8 @@ def executeCommand(command):
 
 def main():
     projects_to_compile = []
+
+    print(os.path.abspath())
 
     # List all sub-folders in specified <folder>
     to_compile_folders = ['ble-apps',
