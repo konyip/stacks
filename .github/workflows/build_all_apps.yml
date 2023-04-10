@@ -24,6 +24,6 @@ jobs:
       - name: Store All Artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: *.elf
+          name: all.elf
           path: /home/runner/work/stacks/*/gcc/bin/*.elf
           retention-days: 5
