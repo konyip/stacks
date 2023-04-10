@@ -1,11 +1,12 @@
 name: build ble5 controller on push
 run-name: ${{ github.actor }} is attempting to build ble5 controller on push to respository
-on: [push]
-  paths:
-    - '/home/runner/work/stacks/stacks/controller/build/ble5-ctr/**'
-    - '/home/runner/work/stacks/stacks/controller/build/common/**'
-    - '/home/runner/work/stacks/stacks/controller/include/**'
-    - '/home/runner/work/stacks/stacks/controller/sources/**'
+on: 
+  push:
+    paths:
+      - '/home/runner/work/stacks/stacks/controller/build/ble5-ctr/**'
+      - '/home/runner/work/stacks/stacks/controller/build/common/**'
+      - '/home/runner/work/stacks/stacks/controller/include/**'
+      - '/home/runner/work/stacks/stacks/controller/sources/**'
 jobs:
   build_on_push:
     runs-on: ubuntu-latest
