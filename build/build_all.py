@@ -27,7 +27,7 @@ class Project:
 # This function returns the list to compile from the specified folder
 def generateCompileList(folder):
     # Get current working directory.  This file should be root/build.
-    search_path = os.path.abspath(os.path.join('..', folder))
+    search_path = os.path.abspath(folder)
 
     dir_list = [os.path.join(filename,'build') for filename in os.listdir(os.path.join(search_path)) if os.path.isdir(os.path.join(search_path, filename))]
     dir_list_string = ','.join(dir_list)
