@@ -15,7 +15,7 @@ class Project:
         self.app = app
         self.makeCommand = 'make -C ' + os.path.join(self.folder, 'build', self.app, 'gcc')
         self.binaryOutput = os.path.join(self.folder, 'build',  self.app, 'gcc', 'bin', self.app + '.elf')
-        self.buildResult = -1
+        self.buildResult = None
 
     def printInfo(self):
         print(f'{self.folder}:')
@@ -47,14 +47,14 @@ def executeCommand(command):
         result = subprocess.check_output(command, stderr=subprocess.STDOUT, universal_newlines=True)
         print(result.stdout)
         print(f"Build ({build_command}) successful")
-        return(0)
+        return("Success")
     except subprocess.CalledProcessError as e:
         print("Build ({build_command}) was terminated by signal: {e.returncode}")
         print(e.output)
-        return(e.returncode)
+        return(f"Failed {e.returncode}")
     except OSError as e:
         print(f"Build ({build_command}) failed:  {e.returncode}")
-        return(-1)
+        return("Error")
 
 
 
@@ -72,9 +72,11 @@ def main():
         for app in compile_list:
             projects_to_compile.append(Project(folder, app))
 
-    # Print all
+    # Print all images
     for app in projects_to_compile:
         app.printInfo()
+        app.buildResult = executeCommand(app.makeCommand)
+        print (f'{app.app} compile {app.buildResult}')
    
 
 if __name__ == "__main__":

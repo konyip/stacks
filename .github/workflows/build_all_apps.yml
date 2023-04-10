@@ -1,0 +1,29 @@
+name: build all apps
+run-name: ${{ github.actor }} is attempting to build all apps on push to respository
+on: [push]
+jobs:
+  build_on_push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update APT
+        run: sudo apt-get update
+      - name: Install ARM GNU Toolchain
+        run: sudo apt-get install build-essential binutils-arm-none-eabi gcc-arm-none-eabi
+      - name: Check where the ARM GNU Toolchain was installed
+        run: |
+          dpkg -L binutils-arm-none-eabi
+          dpkg -L gcc-arm-none-eabi
+      - name: Sync Repository Code
+        uses: actions/checkout@v3
+      - name: Dump root directory
+        run: ls -all 
+      - name: Build all apps
+        run: |
+          export PATH=/usr/lib/gcc-arm-none-eabi/bin:/usr/lib/arm-none-eabi/bin:$PATH
+          python build/build_all.py
+      - name: Store All Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: *.elf
+          path: /home/runner/work/stacks/*/gcc/bin/*.elf
+          retention-days: 5
