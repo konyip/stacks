@@ -2,7 +2,7 @@ name: Unit Test BLE5 Controller
 run-name: ${{ github.actor }} is attempting to test ble5 controller on new artifacts from build_ble5_ctrl_on_push
 on: 
   workflow_run:
-    workflows: ["build_ble5_ctrl_on_push"]
+    workflows: ["build ble5 controller on push"]
     types: [completed]
 jobs:
   download:
