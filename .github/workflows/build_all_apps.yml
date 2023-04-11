@@ -25,6 +25,6 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: all_elf_files
-          path: '**.elf'
+          paths: '**.elf'
           retention-days: 5
           if-no-files-found: error
