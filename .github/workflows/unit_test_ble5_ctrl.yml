@@ -1,0 +1,55 @@
+name: Unit Test BLE5 Controller
+run-name: ${{ github.actor }} is attempting to test ble5 controller on new artifacts from build_ble5_ctrl_on_push
+on: 
+  workflow_run:
+    workflows: [build_ble5_ctrl_on_push]
+    types:
+      - completed
+jobs:
+  download:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Artifact
+        uses: actions/github-script@v6
+        with:
+          script: |
+            let allArtifacts = await github.rest.actions.listWorkflowRunArtifacts({
+               owner: context.repo.owner,
+               repo: context.repo.repo,
+               run_id: context.payload.workflow_run.id,
+            });
+            let matchArtifact = allArtifacts.data.artifacts.filter((artifact) => {
+              return artifact.name == "ble5-ctr"
+            })[0];
+            let download = await github.rest.actions.downloadArtifact({
+               owner: context.repo.owner,
+               repo: context.repo.repo,
+               artifact_id: matchArtifact.id,
+               archive_format: 'zip',
+            });
+            let fs = require('fs');
+            fs.writeFileSync(`${process.env.GITHUB_WORKSPACE}/ble5-ctr.zip`, Buffer.from(download.data));
+
+      - name: 'Unzip artifact'
+        run: unzip pr_numbble5-ctr.zip
+  test:
+    # This would probably be a self-hosted runner so that the build can be loaded on device
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Download on target
+        run: echo "Pretending to download build on target"
+      - name: Setup Test Equipment
+        run: echo "Setting up test equipment for unit test"
+      - name: Run Test on target
+        run: echo "Running Test on Target through test equipment"
+      - name: Analyze test results
+        run: echo "Test Results Success" > test_result.txt
+      - name: Archive test results 
+        uses: actions/upload-artifact@v3
+        with:
+          name: test_result.txt
+          path: test_result.txt
+          retention-days: 5
+      
+    
+
