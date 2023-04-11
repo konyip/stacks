@@ -9,28 +9,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download Artifact
-        uses: actions/github-script@v6
-        with:
-          script: |
-            let allArtifacts = await github.rest.actions.listWorkflowRunArtifacts({
-               owner: context.repo.owner,
-               repo: context.repo.repo,
-               run_id: context.payload.workflow_run.id,
-            });
-            let matchArtifact = allArtifacts.data.artifacts.filter((artifact) => {
-              return artifact.name == "ble5-ctr"
-            })[0];
-            let download = await github.rest.actions.downloadArtifact({
-               owner: context.repo.owner,
-               repo: context.repo.repo,
-               artifact_id: matchArtifact.id,
-               archive_format: 'zip',
-            });
-            let fs = require('fs');
-            fs.writeFileSync(`${process.env.GITHUB_WORKSPACE}/ble5-ctr.zip`, Buffer.from(download.data));
-
+        uses: actions/download-artifact@v3
+        with: 
+          name: ble5-ctr-elf
       - name: 'Unzip artifact'
-        run: unzip pr_numbble5-ctr.zip
+        run: unzip ble5-ctr-elf.zip
   test:
     # This would probably be a self-hosted runner so that the build can be loaded on device
     runs-on: ubuntu-latest
