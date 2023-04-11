@@ -32,6 +32,6 @@ jobs:
       - name: Store Artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: assettag.elf
+          name: ble-mesh-apps-light-elf
           path: /home/runner/work/stacks/stacks/ble-mesh-apps/build/light/gcc/bin/light.elf
           retention-days: 5

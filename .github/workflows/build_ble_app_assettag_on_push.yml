@@ -30,6 +30,6 @@ jobs:
       - name: Store Artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: assettag.elf
+          name: ble-apps-assettag.elf
           path: /home/runner/work/stacks/stacks/ble-apps/build/assettag/gcc/bin/assettag.elf
           retention-days: 5
