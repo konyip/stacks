@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download Artifact
-        uses: actions/download-artifact@v3
+        uses: dawidd6/action-download-artifact@v2.26.1
         with: 
           name: BLE5 Controller ELF
       - name: 'Unzip artifact'
