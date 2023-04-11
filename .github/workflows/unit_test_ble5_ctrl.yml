@@ -11,7 +11,7 @@ jobs:
       - name: Download Artifact
         uses: actions/download-artifact@v3
         with: 
-          name: ble5-ctr-elf
+          name: BLE5 Controller ELF
       - name: 'Unzip artifact'
         run: unzip ble5-ctr-elf.zip
   test:
@@ -29,7 +29,7 @@ jobs:
       - name: Archive test results 
         uses: actions/upload-artifact@v3
         with:
-          name: test_result.txt
+          name: BLE5 Controller Test Result
           path: test_result.txt
           retention-days: 5
       
