@@ -2,7 +2,7 @@ name: build specific apps
 run-name: ${{ github.actor }} is attempting to build specific apps on push to respository
 on: [push]
 jobs:
-  build_on_push:
+  setup_runner:
     runs-on: ubuntu-latest
     steps:
       - name: Update APT
@@ -19,11 +19,15 @@ jobs:
         uses: actions/checkout@v3
       - name: Dump root directory
         run: ls -all 
-      - name: Build specific apps
-        uses: ./.github/workflows/build_app_on_call.yml
-        with:
-          folder: controller
-          app: ble5-ctr
+  build_app:
+    needs: setup_runner
+    uses: ./.github/workflows/build_app_on_call.yml
+    with:
+      folder: controller
+      app: ble5-ctr
+  artifacts:
+    runs-on: ubuntu-latest
+    steps:
       - name: Store All Artifacts
         uses: actions/upload-artifact@v3
         with:
