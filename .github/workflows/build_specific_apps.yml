@@ -20,7 +20,7 @@ jobs:
       - name: Dump root directory
         run: ls -all 
       - name: Build specific apps
-        uses: actions/build_app_on_call
+        uses: ./.github/workflows/build_app_on_call.yml
         with:
           folder: controller
           app: ble5-ctr
