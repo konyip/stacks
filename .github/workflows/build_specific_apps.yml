@@ -25,14 +25,3 @@ jobs:
     with:
       folder: controller
       app: ble5-ctr
-  artifacts:
-    needs: build_app
-    runs-on: ubuntu-latest
-    steps:
-      - name: Store All Artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: ELF
-          path: '*/build/*/gcc/bin/*.elf'
-          retention-days: 5
-          if-no-files-found: error
