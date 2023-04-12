@@ -46,8 +46,6 @@ jobs:
           path: artifacts/
       - name: Dump Artifacts directory
         run: ls artifacts
-      - name: 'Unzip artifact'
-        run: unzip ELF.zip
       - name: Download on target
         run: echo "Pretending to download build on target"
       - name: Setup Test Equipment
