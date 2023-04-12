@@ -1,0 +1,19 @@
+name: setup environment
+run-name: ${{ github.actor }} is attempting to setup environment
+on: 
+  workflow_call:
+jobs:
+  setup_runner:
+    name: Setup Build environment
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update APT
+        run: sudo apt-get update
+      - name: Install ARM GNU Toolchain
+        run: |
+          sudo apt-get install build-essential binutils-arm-none-eabi gcc-arm-none-eabi
+          export PATH=/usr/lib/gcc-arm-none-eabi/bin:/usr/lib/arm-none-eabi/bin:$PATH
+      - name: Check where the ARM GNU Toolchain was installed
+        run: |
+          dpkg -L binutils-arm-none-eabi
+          dpkg -L gcc-arm-none-eabi
