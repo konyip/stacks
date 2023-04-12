@@ -30,7 +30,7 @@ jobs:
       - name: Store Artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: ble5-ctr-elf
+          name: BLE5 Controller ELF
           path: /home/runner/work/stacks/stacks/controller/build/ble5-ctr/gcc/bin/ble5-ctr.elf
           retention-days: 5
   download_and_test:
