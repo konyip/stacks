@@ -11,9 +11,9 @@ jobs:
       - name: Download Artifact
         uses: dawidd6/action-download-artifact@v2.26.1
         with: 
-          name: BLE5 Controller ELF
+          name: ELF
       - name: 'Unzip artifact'
-        run: unzip ble5-ctr-elf.zip
+        run: unzip ELF.zip
   test:
     # This would probably be a self-hosted runner so that the build can be loaded on device
     runs-on: ubuntu-latest
