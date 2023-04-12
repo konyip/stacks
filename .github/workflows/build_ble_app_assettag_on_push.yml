@@ -8,21 +8,22 @@ on:
       - '/home/runner/work/stacks/stacks/ble-apps/source/assettag/**'
       - '/home/runner/work/stacks/stacks/platform/**'
 jobs:
-  build_on_push:
+  setup_build_env:
+    uses: ./.github/workflows/setup_build_env.yml
+  sync_repository:
+    name: Sync Repository
+    needs: setup_build_env
     runs-on: ubuntu-latest
     steps:
-      - name: Update APT
-        run: sudo apt-get update
-      - name: Install ARM GNU Toolchain
-        run: sudo apt-get install build-essential binutils-arm-none-eabi gcc-arm-none-eabi
-      - name: Check where the ARM GNU Toolchain was installed
-        run: |
-          dpkg -L binutils-arm-none-eabi
-          dpkg -L gcc-arm-none-eabi
       - name: Sync Repository Code
         uses: actions/checkout@v3
       - name: Dump root directory
         run: ls -all 
+  build_on_push:
+    name: Build on Push
+    needs: sync_repository
+    runs-on: ubuntu-latest
+    steps:
       - name: Build BLE APP Asset Tag
         run: |
           export PATH=/usr/lib/gcc-arm-none-eabi/bin:/usr/lib/arm-none-eabi/bin:$PATH
