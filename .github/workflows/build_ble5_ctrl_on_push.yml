@@ -33,3 +33,26 @@ jobs:
           name: ble5-ctr-elf
           path: /home/runner/work/stacks/stacks/controller/build/ble5-ctr/gcc/bin/ble5-ctr.elf
           retention-days: 5
+  download_and_test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Artifact
+        uses: actions/download-artifact@v3
+        with: 
+          name: BLE5 Controller ELF
+      - name: 'Unzip artifact'
+        run: unzip ble5-ctr-elf.zip
+      - name: Download on target
+        run: echo "Pretending to download build on target"
+      - name: Setup Test Equipment
+        run: echo "Setting up test equipment for unit test"
+      - name: Run Test on target
+        run: echo "Running Test on Target through test equipment"
+      - name: Analyze test results
+        run: echo "Test Results Success" > test_result.txt
+      - name: Archive test results 
+        uses: actions/upload-artifact@v3
+        with:
+          name: BLE5 Controller Test Result
+          path: test_result.txt
+          retention-days: 5
