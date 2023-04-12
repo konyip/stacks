@@ -12,8 +12,9 @@ jobs:
         uses: dawidd6/action-download-artifact@v2.26.1
         with: 
           name: ELF
-      - name: 'Unzip artifact'
-        run: unzip ELF.zip
+          path: artifacts/
+      - name: Dump Artifacts Folder
+        run: ls artifacts
   test:
     # This would probably be a self-hosted runner so that the build can be loaded on device
     runs-on: ubuntu-latest
