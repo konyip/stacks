@@ -60,3 +60,39 @@ jobs:
           name: Results
           path: test_result.txt
           retention-days: 5
+  publish_internal:
+    name: tag minor release after success test for internal usage
+    needs: download_and_test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Find last tag value
+        run: echo "Get GIT tags in reverse order"
+      - name: Increment Tag Minor Revision
+        run: echo "Then increment the number"
+      - name: Tag all files
+        run: echo "And tag all the files used for compilation"
+      - name: Generate Email
+        run: echo "Build email to notify internal watchers"
+      - name: Send Email
+        run: echo "Send email to notify internal watchers"
+  publish_external:
+    name: Publish internal tag to release branch
+    needs: tag_internal
+    runs-on: ubuntu-latest
+    steps:
+      - name: Find last tag value
+        run: echo "Get GIT tags in reverse order"
+      - name: Merge to release branch
+        run: echo "GIT Merge to release branch"
+      - name: Tag for external release
+        run: echo "Tag code for external release"
+      - name: Generate Email
+        run: echo "Build email to notify customers"
+      - name: Send Email
+        run: echo "Send email to notify customers"
+      - name: Post notification about new version
+        run: echo "On distribution site, indicate there is a new tag that can be used"
+
+
+      
+        
