@@ -1,0 +1,102 @@
+name: build app on call
+run-name: ${{ github.actor }} is attempting to build ${{ inputs.folder }}-${{ inputs.app }} on call
+on: 
+  workflow_call:
+    inputs:
+      folder:
+        description: Directory structure assumed to be  | <folder>/build/<app>/gcc/bin/
+        required: true
+        type: string
+      app:
+        description: Directory structure assumed to be  | <folder>/build/<app>/gcc/bin/
+        required: true
+        type: string
+jobs:
+  build_on_push:
+    name: Building
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update APT
+        run: sudo apt-get update
+      - name: Install ARM GNU Toolchain
+        run: |
+          sudo apt-get install build-essential binutils-arm-none-eabi gcc-arm-none-eabi
+          export PATH=/usr/lib/gcc-arm-none-eabi/bin:/usr/lib/arm-none-eabi/bin:$PATH
+      - name: Check where the ARM GNU Toolchain was installed
+        run: |
+          dpkg -L binutils-arm-none-eabi
+          dpkg -L gcc-arm-none-eabi
+      - name: Sync Repository Code
+        uses: actions/checkout@v3
+      - name: Dump root directory
+        run: ls -all 
+      - name: Build ${{ inputs.folder }}-${{ inputs.app }}
+        run: make -C ${{ inputs.folder }}/build/${{ inputs.app }}/gcc
+      - name: Store Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: ELF
+          path: /home/runner/work/stacks/stacks/${{ inputs.folder }}/build/${{ inputs.app }}/gcc/bin/${{ inputs.app }}.elf
+          retention-days: 5
+  download_and_test:
+    name: download and test
+    needs: build_on_push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Artifact
+        uses: actions/download-artifact@v3
+        with: 
+          name: ELF
+          path: artifacts/
+      - name: Dump Artifacts directory
+        run: ls artifacts
+      - name: Download on target
+        run: echo "Pretending to download build on target"
+      - name: Setup Test Equipment
+        run: echo "Setting up test equipment for unit test"
+      - name: Run Test on target
+        run: echo "Running Test on Target through test equipment"
+      - name: Analyze test results
+        run: echo "Test Results Success" > test_result.txt
+      - name: Archive test results 
+        uses: actions/upload-artifact@v3
+        with:
+          name: Results
+          path: test_result.txt
+          retention-days: 5
+  publish_internal:
+    name: tag minor release after success test for internal usage
+    needs: download_and_test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Find last tag value
+        run: echo "Get GIT tags in reverse order"
+      - name: Increment Tag Minor Revision
+        run: echo "Then increment the number"
+      - name: Tag all files
+        run: echo "And tag all the files used for compilation"
+      - name: Generate Email
+        run: echo "Build email to notify internal watchers"
+      - name: Send Email
+        run: echo "Send email to notify internal watchers"
+  publish_external:
+    name: Publish internal tag to release branch
+    needs: tag_internal
+    runs-on: ubuntu-latest
+    steps:
+      - name: Find last tag value
+        run: echo "Get GIT tags in reverse order"
+      - name: Merge to release branch
+        run: echo "GIT Merge to release branch"
+      - name: Tag for external release
+        run: echo "Tag code for external release"
+      - name: Generate Email
+        run: echo "Build email to notify customers"
+      - name: Send Email
+        run: echo "Send email to notify customers"
+      - name: Post notification about new version
+        run: echo "On distribution site, indicate there is a new tag that can be used"
+
+
+      
+        

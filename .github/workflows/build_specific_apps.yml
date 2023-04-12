@@ -1,0 +1,33 @@
+name: build specific apps
+run-name: ${{ github.actor }} is attempting to build all apps on push to respository
+on: [push]
+jobs:
+  build_on_push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update APT
+        run: sudo apt-get update
+      - name: Install ARM GNU Toolchain
+        run: |
+          sudo apt-get install build-essential binutils-arm-none-eabi gcc-arm-none-eabi
+          export PATH=/usr/lib/gcc-arm-none-eabi/bin:/usr/lib/arm-none-eabi/bin:$PATH
+      - name: Check where the ARM GNU Toolchain was installed
+        run: |
+          dpkg -L binutils-arm-none-eabi
+          dpkg -L gcc-arm-none-eabi
+      - name: Sync Repository Code
+        uses: actions/checkout@v3
+      - name: Dump root directory
+        run: ls -all 
+      - name: Build specific apps
+        uses: ./.github/workflows/build_app_on_call
+        with:
+          folder: controller
+          app: ble5-ctr
+      - name: Store All Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: ELF
+          path: '*/build/*/gcc/bin/*.elf'
+          retention-days: 5
+          if-no-files-found: error
