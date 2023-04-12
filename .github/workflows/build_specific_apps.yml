@@ -27,6 +27,7 @@ jobs:
       app: ble5-ctr
   artifacts:
     needs: build_app
+    runs-on: ubuntu-latest
     steps:
       - name: Store All Artifacts
         uses: actions/upload-artifact@v3
