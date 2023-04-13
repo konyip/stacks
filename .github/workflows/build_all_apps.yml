@@ -4,22 +4,15 @@ on: [push]
 jobs:
   setup_build_env:
     uses: ./.github/workflows/setup_build_env.yml
-  sync_repository:
-    name: Sync Repository
+  build_on_push:
+    name: Sync and Build
     needs: setup_build_env
     runs-on: ubuntu-latest
     steps:
       - name: Sync Repository Code
         uses: actions/checkout@v3
-      - name: Dump build directory
-        run: ls build 
-  build_on_push:
-    name: Build all on push
-    needs: sync_repository
-    runs-on: ubuntu-latest
-    steps:
-      - name: Dump build directory
-        run: ls build 
+      - name: Dump root directory
+        run: ls -all
       - name: Build all apps
         run: |
           export PATH=/usr/lib/gcc-arm-none-eabi/bin:/usr/lib/arm-none-eabi/bin:$PATH

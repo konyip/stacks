@@ -14,8 +14,8 @@ on:
 jobs:
   setup_build_env:
     uses: ./.github/workflows/setup_build_env.yml
-  sync_repository:
-    name: Sync Repository
+  build_on_push:
+    name: Sync and Build
     needs: setup_build_env
     runs-on: ubuntu-latest
     steps:
@@ -23,11 +23,6 @@ jobs:
         uses: actions/checkout@v3
       - name: Dump root directory
         run: ls -all 
-  build_on_push:
-    name: Building
-    needs: sync_repository
-    runs-on: ubuntu-latest
-    steps:
       - name: Build ${{ inputs.folder }}-${{ inputs.app }}
         run: make -C ${{ inputs.folder }}/build/${{ inputs.app }}/gcc
       - name: Store Artifacts
