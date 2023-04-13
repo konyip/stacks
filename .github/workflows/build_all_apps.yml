@@ -11,13 +11,15 @@ jobs:
     steps:
       - name: Sync Repository Code
         uses: actions/checkout@v3
-      - name: Dump root directory
-        run: ls -all 
+      - name: Dump build directory
+        run: ls build 
   build_on_push:
     name: Build all on push
     needs: sync_repository
     runs-on: ubuntu-latest
     steps:
+      - name: Dump build directory
+        run: ls build 
       - name: Build all apps
         run: |
           export PATH=/usr/lib/gcc-arm-none-eabi/bin:/usr/lib/arm-none-eabi/bin:$PATH
