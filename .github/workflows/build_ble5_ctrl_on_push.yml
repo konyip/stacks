@@ -79,7 +79,7 @@ jobs:
         run: echo "Send email to notify internal watchers"
   publish_external:
     name: Publish internal tag to release branch
-    needs: tag_internal
+    needs: publish_internal
     runs-on: ubuntu-latest
     steps:
       - name: Find last tag value
