@@ -45,7 +45,7 @@ TOKEN_HDR       := $(BIN:.elf=_tokens.h)
 #-------------------------------------------------------------------------------
 
 HASH_SCR        := import sys, binascii; \
-                   print (hex(binascii.crc32(sys.argv[1]) & 0xFFFF))
+                   print (hex(binascii.crc32(sys.argv[1].encode()) & 0xFFFF))
 FILE_HASH       = $(shell $(PYTHON) -c "$(HASH_SCR)" $(notdir $(1)))
 
 #--------------------------------------------------------------------------------------------------
