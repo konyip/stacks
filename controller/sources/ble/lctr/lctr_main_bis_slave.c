@@ -574,7 +574,7 @@ uint8_t LctrSlvBisCreateBig(LlCreateBig_t *pCreateBig)
 
     if (pBisCtx)
     {
-      lctrSetupBisContext(pBisCtx, pBigCtx->seedAccAddr, pBigCtx->baseCrcInit, lmgrCb.chanClass, pBigCtx->phy);
+      lctrSetupBisContext(pBisCtx, pBigCtx->seedAccAddr, pBigCtx->baseCrcInit, lmgrCb.chanClass, (LlPhy_t)pBigCtx->phy);
     }
     else
     {
@@ -663,7 +663,7 @@ uint8_t LctrSlvBisCreateBigTest(LlCreateBigTest_t *pCreateBigTest)
 
     if (pBisCtx)
     {
-      lctrSetupBisContext(pBisCtx, pBigCtx->seedAccAddr, pBigCtx->baseCrcInit, lmgrCb.chanClass, pBigCtx->phy);
+      lctrSetupBisContext(pBisCtx, pBigCtx->seedAccAddr, pBigCtx->baseCrcInit, lmgrCb.chanClass, (LlPhy_t)pBigCtx->phy);
     }
     else
     {
